@@ -1,6 +1,5 @@
 import streamlit as st
 import numpy as np
-import cv2
 from ultralytics import YOLO
 from PIL import Image
 
@@ -36,38 +35,11 @@ if uploaded_file is not None:
     result = results[0]
 
     detection_count = 0
-
     if result.boxes is not None:
+        detection_count = len(result.boxes)
 
-        boxes = result.boxes.xyxy.cpu().numpy()
-        scores = result.boxes.conf.cpu().numpy()
+    annotated_frame = result.plot()
 
-        detection_count = len(boxes)
-
-        for box, score in zip(boxes, scores):
-
-            x1, y1, x2, y2 = map(int, box)
-
-            cv2.rectangle(
-                image_np,
-                (x1, y1),
-                (x2, y2),
-                (0,255,0),
-                2
-            )
-
-            label = f"Dead Chick {score:.2f}"
-
-            cv2.putText(
-                image_np,
-                label,
-                (x1, y1-10),
-                cv2.FONT_HERSHEY_SIMPLEX,
-                0.6,
-                (0,255,0),
-                2
-            )
-
-    st.image(image_np, caption="Detection Result", use_column_width=True)
+    st.image(annotated_frame, caption="Detection Result", use_column_width=True)
 
     st.success(f"Detected Dead Chickens: {detection_count}")

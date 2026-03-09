@@ -14,7 +14,7 @@ st.write("Upload an image to detect poultry mortality.")
 # Load ONNX model
 @st.cache_resource
 def load_model():
-    model = YOLO("C:\\Users\\Sahil\\OneDrive\\Desktop\\DeadChickDetector\\chick_dead.onnx")  # path to your ONNX model
+    model = YOLO("chick_dead.onnx")  # path to your ONNX model
     return model
 
 model = load_model()

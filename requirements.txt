@@ -1,9 +1,6 @@
 streamlit
-numpy
-opencv-python-headless
 ultralytics
+opencv-python-headless
+numpy
 pillow
-onnx
 onnxruntime
-torch
-torchvision
